@@ -11,6 +11,7 @@ export interface Product {
   cost_price?: number;
   selling_price?: number;
   min_stock_level?: number;
+  branch_id?: number;
   created_at?: string;
   updated_at?: string;
 }

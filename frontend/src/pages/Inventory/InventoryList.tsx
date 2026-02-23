@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Table, Tag, Button, message, Input, Select, Space } from 'antd';
 import { WarningOutlined, ReloadOutlined, SearchOutlined } from '@ant-design/icons';
 import { inventoryApi } from '../../api/inventory';
-import { useAuth } from '../../contexts/AuthContext';
 
 const InventoryList: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -11,7 +10,6 @@ const InventoryList: React.FC = () => {
   const [searchText, setSearchText] = useState('');
   const [selectedBranch, setSelectedBranch] = useState<string>('all');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const { user } = useAuth();
 
   useEffect(() => {
     loadInventory();

@@ -159,7 +159,7 @@ const UserManagement: React.FC = () => {
     {
       title: '操作',
       key: 'actions',
-      render: (text: any, record: any) => (
+      render: (_: any, record: any) => (
         <Space>
           <Button
             type="link"

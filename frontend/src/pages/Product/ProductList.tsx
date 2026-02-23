@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Table, Button, Input, Select, Space, message, Popconfirm, Tag } from 'antd';
 import { PlusOutlined, EditOutlined, DeleteOutlined, SearchOutlined } from '@ant-design/icons';
-import { productApi, Product } from '../../api/product';
+import { productApi } from '../../api/product';
 import { inventoryApi } from '../../api/inventory';
 import { useAuth } from '../../contexts/AuthContext';
 
