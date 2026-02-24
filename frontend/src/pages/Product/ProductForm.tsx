@@ -148,6 +148,20 @@ const ProductForm: React.FC = () => {
             />
           </Form.Item>
 
+          {!isEdit && (
+            <Form.Item 
+              label="初始庫存量" 
+              name="initial_quantity"
+              tooltip="新增商品時可直接設定初始庫存，若不填寫則預設為 0"
+            >
+              <InputNumber
+                min={0}
+                style={{ width: '100%' }}
+                placeholder="請輸入初始庫存量（選填）"
+              />
+            </Form.Item>
+          )}
+
           <Form.Item>
             <Button type="primary" htmlType="submit" loading={loading}>
               {isEdit ? '更新' : '新增'}

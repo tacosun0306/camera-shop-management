@@ -74,7 +74,7 @@ router.get('/barcode/:barcode', (req: Request, res: Response) => {
 
 // 新增商品
 router.post('/', (req: Request, res: Response) => {
-  const { barcode, name, brand, category, model, description, cost_price, selling_price, min_stock_level, branch_id } = req.body;
+  const { barcode, name, brand, category, model, description, cost_price, selling_price, min_stock_level, branch_id, initial_quantity } = req.body;
 
   if (!barcode || !name) {
     res.status(400).json({ error: '條碼和商品名稱為必填' });
@@ -97,10 +97,11 @@ router.post('/', (req: Request, res: Response) => {
     }
 
     const productId = this.lastID;
+    const initialQty = initial_quantity || 0;
 
-    // 建立該分店的庫存記錄
-    const inventorySql = 'INSERT INTO inventory (product_id, branch_id, quantity) VALUES (?, ?, 0)';
-    db.run(inventorySql, [productId, branch_id || 1], (invErr) => {
+    // 建立該分店的庫存記錄（使用初始庫存量）
+    const inventorySql = 'INSERT INTO inventory (product_id, branch_id, quantity) VALUES (?, ?, ?)';
+    db.run(inventorySql, [productId, branch_id || 1, initialQty], (invErr) => {
       if (invErr) {
         console.error('建立庫存記錄錯誤:', invErr);
       }
