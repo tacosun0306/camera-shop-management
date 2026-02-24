@@ -6,14 +6,13 @@ import fs from 'fs';
 
 dotenv.config();
 
-// 在 Render 環境中使用 /opt/render/project/src 資料夾
-const DB_DIR = process.env.DB_DIR || path.join(__dirname, '../..');
-const DB_PATH = process.env.DB_PATH || path.join(DB_DIR, 'database.sqlite');
+// Render 環境檢測：使用內存數據庫避免文件系統問題
+const isRender = process.env.RENDER === 'true';
+const DB_PATH = isRender 
+  ? ':memory:'  // Render 環境使用內存數據庫
+  : process.env.DB_PATH || path.join(__dirname, '../../database.sqlite');
 
-// 確保資料庫目錄存在
-if (!fs.existsSync(DB_DIR)) {
-  fs.mkdirSync(DB_DIR, { recursive: true });
-}
+console.log(`📦 使用數據庫: ${isRender ? '內存數據庫 (Render)' : DB_PATH}`);
 
 export const db = new sqlite3.Database(DB_PATH, (err) => {
   if (err) {
