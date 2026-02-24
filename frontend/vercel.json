@@ -7,7 +7,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://camera-shop-backend.onrender.com/api/:path*"
+      "destination": "https://camerashop-backend.onrender.com/api/:path*"
     },
     {
       "source": "/(.*)",
