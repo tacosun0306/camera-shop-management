@@ -2,10 +2,18 @@ import sqlite3 from 'sqlite3';
 import path from 'path';
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
+import fs from 'fs';
 
 dotenv.config();
 
-const DB_PATH = process.env.DB_PATH || path.join(__dirname, '../../database.sqlite');
+// 在 Render 環境中使用 /opt/render/project/src 資料夾
+const DB_DIR = process.env.DB_DIR || path.join(__dirname, '../..');
+const DB_PATH = process.env.DB_PATH || path.join(DB_DIR, 'database.sqlite');
+
+// 確保資料庫目錄存在
+if (!fs.existsSync(DB_DIR)) {
+  fs.mkdirSync(DB_DIR, { recursive: true });
+}
 
 export const db = new sqlite3.Database(DB_PATH, (err) => {
   if (err) {

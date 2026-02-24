@@ -38,6 +38,18 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok', message: '相機店管理系統 API 運行中' });
 });
 
+// 調試端點 - 檢查數據庫狀態
+app.get('/debug/users', (req, res) => {
+  const sql = 'SELECT id, username, name, role, branch_id FROM users';
+  require('./config/database').db.all(sql, [], (err: any, rows: any) => {
+    if (err) {
+      res.json({ error: err.message });
+    } else {
+      res.json({ users: rows });
+    }
+  });
+});
+
 // 受保護路由（需要 Token 驗證）
 app.use('/api/products', authenticateToken, productRoutes);
 app.use('/api/inventory', authenticateToken, inventoryRoutes);
